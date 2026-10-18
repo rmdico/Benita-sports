@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#155eef">
 <title>بنیتا فاطمی | تیم ما، انرژی ما</title>
-<meta name="description" content="معرفی بنیتا فاطمی و ایده‌های ورزشی او برای شورای دانش‌آموزی">
+<meta name="description" content="معرفی بنیتا فاطمی و ایده‌های ورزشی برای شورای دانش‌آموزی">
 <style>
 :root{--blue:#155eef;--navy:#10254b;--sky:#eaf4ff;--yellow:#ffdb69;--ink:#192b49;--muted:#65748b}
 *{box-sizing:border-box}
@@ -20,19 +20,20 @@ header{background:#fff;border-bottom:1px solid #e5edf7;padding:14px 0}
 .logo{width:43px;height:43px;border-radius:15px;background:var(--blue);color:white;display:grid;place-items:center;font-size:23px}
 nav{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:800}
 nav a:hover{color:var(--blue)}
-.hero{margin:23px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(130deg,#10275b,#155eef 65%,#65c7ff);color:white;padding:42px 6%;position:relative}
-.hero:after{content:"";position:absolute;width:280px;height:280px;border:40px solid #ffffff12;border-radius:50%;left:-100px;top:-110px}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:20px;position:relative;z-index:1}
-.tag{display:inline-block;border:1px solid #ffffff70;background:#ffffff18;border-radius:30px;padding:4px 13px;font-size:13px}
-h1{font-size:clamp(34px,6vw,59px);line-height:1.45;margin:15px 0}
+.hero{margin:23px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(130deg,#10275b,#155eef 65%,#65c7ff);color:white;padding:30px 5%;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:28px;position:relative;z-index:1}
+.tag{display:inline-block;border:1px solid #ffffff70;background:#ffffff18;border-radius:30px;padding:4px 13px;font-size:12px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.45;margin:14px 0}
 .hero p{color:#e5f1ff;max-width:530px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .btn{display:inline-block;border-radius:14px;padding:10px 18px;font-weight:900}
 .primary{background:var(--yellow);color:var(--navy)}
 .secondary{border:1px solid #ffffff85;color:white}
-.sports-art{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;justify-items:center;min-height:210px}
-.ball{width:min(135px,100%);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:67px;background:radial-gradient(circle at 30% 25%,#fff,#d8edff 60%,#83baff);box-shadow:0 18px 35px #001d5440}
-.ball:nth-child(2){transform:translateY(27px)}
+.photo-frame{padding:8px;background:linear-gradient(145deg,#fff,var(--yellow),#85c8ff);border-radius:27px;box-shadow:0 20px 50px #001d5444;max-width:390px;margin:auto;transform:rotate(1deg)}
+.photo-frame img{display:block;width:100%;height:390px;object-fit:cover;object-position:center 30%;border-radius:20px}
+.photo-caption{text-align:center;color:white;font-size:13px;font-weight:800;margin-top:13px}
+.sports-strip{display:flex;justify-content:center;gap:12px;margin-top:15px;flex-wrap:wrap}
+.sport-pill{background:#ffffff20;border:1px solid #ffffff50;border-radius:30px;padding:5px 13px;font-size:13px}
 .section{padding:43px 0}
 .eyebrow{color:var(--blue);font-size:13px;font-weight:900}
 h2{font-size:clamp(25px,4vw,35px);line-height:1.5;margin:5px 0 10px}
@@ -61,10 +62,10 @@ footer p{font-size:13px}
 footer a{color:#a8d0ff}
 @media(max-width:700px){
  nav{gap:9px;font-size:12px}
- .hero{padding:28px 6%}
+ .hero{padding:22px 5%}
  .hero-grid,.feature{grid-template-columns:1fr}
- .sports-art{min-height:165px;grid-row:1}
- .ball{width:112px;font-size:55px}
+ .photo-frame{max-width:300px}
+ .photo-frame img{height:310px}
  .cards,.magazine{grid-template-columns:1fr}
  .section{padding:32px 0}
  .feature{padding:20px}
@@ -87,25 +88,31 @@ footer a{color:#a8d0ff}
 <section class="hero" id="home">
 <div class="hero-grid">
 <div>
-<span class="tag">⭐ شورای دانش‌آموزی | ایده‌های تازه</span>
+<span class="tag">⭐ نامزد شورای دانش‌آموزی</span>
 <h1>تیم ما،<br>انرژی ما!</h1>
-<p>سلام! من بنیتا فاطمی هستم. دوست دارم مدرسه‌مان پر از شور، دوستی و فعالیت‌های ورزشی باشد؛ جایی که هرکدام از ما بتوانیم توانایی‌هایمان را نشان بدهیم و کنار هم پیشرفت کنیم.</p>
+<p>سلام! من بنیتا فاطمی هستم. دوست دارم مدرسه‌مان پر از شور، دوستی و فعالیت‌های ورزشی باشد؛ جایی که همه بتوانیم توانایی‌هایمان را نشان بدهیم و کنار هم پیشرفت کنیم.</p>
 <div class="actions">
 <a class="btn primary" href="#goals">برنامه‌های من ←</a>
 <a class="btn secondary" href="#magazine">مجله ورزشی</a>
 </div>
+<div class="sports-strip">
+<span class="sport-pill">🏀 بسکتبال</span>
+<span class="sport-pill">🏐 والیبال</span>
 </div>
-<div class="sports-art" aria-label="بسکتبال و والیبال">
-<div class="ball">🏀</div>
-<div class="ball">🏐</div>
+</div>
+<div>
+<div class="photo-frame">
+<img src="32904068-536E-4F69-9CDC-419ECDD33F78.png" alt="عکس بنیتا فاطمی">
+</div>
+<div class="photo-caption">بنیتا فاطمی | با هم، پرتحرک‌تر 💙</div>
 </div>
 </div>
 </section>
 
 <section class="section" id="about">
-<span class="eyebrow">سلام به هم‌مدرسه‌ای‌های عزیزم!</span>
+<span class="eyebrow">سلام به دوستانم!</span>
 <h2>ورزش؛ بهانه‌ای برای دوستی</h2>
-<p class="intro">بسکتبال به ما پاس‌دادن و همکاری را یاد می‌دهد؛ والیبال یادمان می‌دهد برای رسیدن به یک هدف، به هم اعتماد کنیم. مهم این است که کنار هم بازی کنیم، به هم احترام بگذاریم و از تلاش‌کردن لذت ببریم.</p>
+<p class="intro">بسکتبال به ما پاس‌دادن و همکاری را یاد می‌دهد؛ والیبال یادمان می‌دهد برای رسیدن به یک هدف به هم اعتماد کنیم. مهم این است که کنار هم بازی کنیم، به هم احترام بگذاریم و از تلاش‌کردن لذت ببریم.</p>
 <div class="cards">
 <article class="card"><div class="symbol">🏀</div><h3>دنیای بسکتبال</h3><p>پیشنهاد بازی‌ها و مسابقه‌های دوستانه برای تقویت همکاری، تمرکز و روحیه تیمی.</p></article>
 <article class="card"><div class="symbol">🏐</div><h3>هیجان والیبال</h3><p>تمرین‌های گروهی و بازی‌های دوستانه با فرصت مشارکت برای دانش‌آموزان علاقه‌مند.</p></article>
@@ -116,7 +123,7 @@ footer a{color:#a8d0ff}
 <section class="section" id="goals">
 <div class="feature">
 <div>
-<span class="eyebrow">ایده‌های من برای شورای دانش‌آموزی</span>
+<span class="eyebrow">ایده‌های من برای شورا</span>
 <h2>مدرسه‌ای فعال‌تر و شادتر</h2>
 <p class="intro">می‌خواهم صدای دوستانم را بشنوم و پیشنهادهای ورزشی آن‌ها را برای بررسی با شورای دانش‌آموزی و مسئولان مدرسه در میان بگذارم.</p>
 <ul class="checks">
