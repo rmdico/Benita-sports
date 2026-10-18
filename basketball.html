@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#155eef">
+<title>چالش پرتاب بسکتبال با بنیتا 🏀</title>
+<style>
+:root{--blue:#155eef;--navy:#10254b;--sky:#eaf4ff;--yellow:#ffdb69;--ink:#192b49;--muted:#65748b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf6ff,#fff 55%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;line-height:1.8}
+.wrap{width:min(760px,94%);margin:auto}header{padding:18px 0;background:#fff;border-bottom:1px solid #dce9fb}.brand{font-weight:900;color:var(--navy);font-size:19px}header a{color:var(--blue);text-decoration:none;font-size:13px;display:inline-block;margin-top:5px}
+.hero{margin:20px auto;background:linear-gradient(135deg,#10275b,#155eef 68%,#55c7ff);color:#fff;border-radius:25px;padding:22px;text-align:center;box-shadow:0 15px 35px #155eef24}.hero h1{font-size:clamp(27px,6vw,38px);margin:0 0 5px}.hero p{margin:0;color:#eaf4ff;font-size:14px}
+.panel{background:#fff;border:1px solid #e0eafa;border-radius:22px;padding:16px;margin:16px 0;box-shadow:0 8px 25px #173c700a}.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{flex:1;min-width:180px}.field label{display:block;font-weight:800;font-size:13px;margin-bottom:5px}.field input{width:100%;padding:12px 13px;border:1px solid #cad8ec;border-radius:12px;font:inherit;font-size:16px;outline-color:var(--blue)}button{font:inherit;font-weight:900;border:0;border-radius:13px;padding:11px 16px;cursor:pointer}.primary{background:var(--yellow);color:var(--navy)}.blue{background:var(--blue);color:white}.soft{background:#eaf2ff;color:var(--blue)}button:disabled{opacity:.45}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.stat{background:#f2f7ff;border-radius:13px;text-align:center;padding:9px 5px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:23px;color:var(--blue);line-height:1.4}
+.game-wrap{position:relative;overflow:hidden;border-radius:18px;border:2px solid #d5e7ff;background:#cce7ff;touch-action:none}.game-wrap canvas{display:block;width:100%;height:430px;touch-action:none}.hint{text-align:center;color:var(--muted);font-size:13px;margin:10px 0 0}.game-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:13px}.section-title{margin:0 0 5px;font-size:20px}.muted{color:var(--muted);font-size:13px;margin:0}.leaderboard{width:100%;border-collapse:collapse;margin-top:10px}.leaderboard th,.leaderboard td{text-align:right;padding:9px 7px;border-bottom:1px solid #e8eef8;font-size:14px}.leaderboard th{color:var(--muted);font-size:12px}.leaderboard tr:first-child td{font-weight:900;color:#155eef}.empty{text-align:center;color:var(--muted);padding:15px 0}.notice{font-size:12px;color:var(--muted);margin-top:10px}footer{text-align:center;color:var(--muted);padding:15px 0 28px;font-size:12px}
+@media(max-width:480px){.game-wrap canvas{height:390px}.hero{padding:19px 14px}.panel{padding:13px}.stats{gap:6px}.stat strong{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand">🏀 چالش پرتاب بسکتبال با بنیتا</div><a href="./">← بازگشت به سایت بنیتا</a></div></header>
+<main class="wrap">
+<section class="hero"><h1>آماده‌ای رکورد بزنی؟ 🏆</h1><p>توپ رو به عقب بکش، نشونه بگیر و رها کن تا توپ وارد حلقه بشه!</p></section>
+<section class="panel">
+<div class="controls"><div class="field"><label for="playerName">اسم یا لقب بازیکن</label><input id="playerName" maxlength="18" placeholder="مثلاً قهرمان آبی" autocomplete="nickname"></div><button id="startBtn" class="blue">شروع بازی ▶</button></div>
+<div class="stats"><div class="stat"><span>امتیاز</span><strong id="score">۰</strong></div><div class="stat"><span>زمان باقی‌مانده</span><strong><span id="time" style="display:inline;color:inherit;font-size:23px">۴۵</span> ثانیه</strong></div><div class="stat"><span>پرتاب موفق</span><strong id="made">۰</strong></div></div>
+</section>
+<section class="panel"><div class="game-wrap"><canvas id="court" aria-label="زمین بازی بسکتبال؛ توپ را بکش و رها کن"></canvas></div><p class="hint" id="hint">برای شروع، اسم یا لقب را وارد کن و «شروع بازی» را بزن. بعد توپ را به عقب بکش و رها کن.</p><div class="game-actions"><button class="primary" id="againBtn">بازی دوباره ↻</button><button class="soft" id="resetBoardBtn">پاک کردن رکوردهای این گوشی</button></div></section>
+<section class="panel"><h2 class="section-title">🏅 رکوردهای برتر این گوشی</h2><p class="muted">فعلاً رکوردها فقط روی همین گوشی ذخیره می‌شوند؛ برای جدول مشترک بین همه دانش‌آموزان باید بعداً پایگاه داده را وصل کنیم.</p><table class="leaderboard"><thead><tr><th>رتبه</th><th>بازیکن</th><th>امتیاز</th></tr></thead><tbody id="board"><tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr></tbody></table><p class="notice">لطفاً از اسم مستعار استفاده کنید و اطلاعات شخصی مثل شماره تلفن یا نام خانوادگی کامل وارد نکنید.</p></section>
+</main><footer>ساخته‌شده برای سرگرمی و رقابت دوستانه 💙</footer>
+<script>
+(()=>{
+const canvas=document.getElementById('court'),ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id);let W=320,H=390,dpr=1,ball,drag=null,running=false,ended=true,score=0,made=0,seconds=45,last=0,raf=0,shot=false,scoredThisShot=false,flash='',flashUntil=0;
+const fa=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+function resize(){const r=canvas.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);W=r.width;H=r.height;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);resetBall();draw()}
+function hoop(){return {x:W*.77,y:H*.39}}
+function resetBall(){ball={x:W*.19,y:H*.77,r:Math.max(13,Math.min(17,W*.045)),vx:0,vy:0,prevX:0,prevY:0};shot=false;drag=null;scoredThisShot=false}
+function rounded(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
+function draw(){ctx.clearRect(0,0,W,H);
+let g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#d9efff');g.addColorStop(1,'#f5fbff');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+// stands and crowd
+ctx.fillStyle='#9dcfff';ctx.fillRect(0,H*.08,W,H*.19);for(let i=0;i<Math.floor(W/19);i++){ctx.fillStyle=['#155eef','#ffdb69','#ffffff','#4d9cff'][i%4];ctx.beginPath();ctx.arc(8+i*19,H*.14,4,0,Math.PI*2);ctx.fill()}
+// court floor
+ctx.fillStyle='#f0bd79';ctx.fillRect(0,H*.73,W,H*.27);ctx.strokeStyle='#fff0d7';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,H*.83);ctx.lineTo(W,H*.83);ctx.stroke();ctx.beginPath();ctx.arc(W*.5,H*.88,W*.18,Math.PI,Math.PI*2);ctx.stroke();
+// backboard and hoop
+const h=hoop();ctx.fillStyle='#fff';ctx.strokeStyle='#155eef';ctx.lineWidth=3;ctx.fillRect(h.x+22,h.y-46,8,64);ctx.strokeRect(h.x+22,h.y-46,8,64);ctx.strokeStyle='#f05b35';ctx.lineWidth=5;ctx.beginPath();ctx.ellipse(h.x,h.y,24,6,0,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(h.x-22,h.y+3);ctx.lineTo(h.x-13,h.y+28);ctx.lineTo(h.x,h.y+31);ctx.lineTo(h.x+13,h.y+28);ctx.lineTo(h.x+22,h.y+3);ctx.stroke();
+// target glow
+ctx.fillStyle='#155eef12';ctx.beginPath();ctx.arc(h.x,h.y,44,0,Math.PI*2);ctx.fill();
+// guide while aiming
+if(drag&&!shot){ctx.setLineDash([5,5]);ctx.strokeStyle='#155eef';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(ball.x,ball.y);ctx.lineTo(ball.x+(drag.x-drag.startX)*-.65,ball.y+(drag.y-drag.startY)*-.65);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#155eef';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText('رها کن!',ball.x,ball.y-31)}
+// ball
+ctx.save();ctx.translate(ball.x,ball.y);ctx.fillStyle='#f58220';ctx.beginPath();ctx.arc(0,0,ball.r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#74330d';ctx.lineWidth=2;ctx.stroke();ctx.beginPath();ctx.moveTo(-ball.r*.9,-ball.r*.05);ctx.quadraticCurveTo(0,-ball.r*.35,ball.r*.9,ball.r*.05);ctx.moveTo(-ball.r*.15,-ball.r*.98);ctx.quadraticCurveTo(-ball.r*.55,0,-ball.r*.12,ball.r*.98);ctx.moveTo(ball.r*.4,-ball.r*.88);ctx.quadraticCurveTo(ball.r*.05,0,ball.r*.55,ball.r*.88);ctx.stroke();ctx.restore();
+if(flash&&performance.now()<flashUntil){ctx.fillStyle='#10254be8';rounded(W*.18,H*.25,W*.64,48,15,'#10254be8');ctx.fillStyle='#fff';ctx.font='bold 21px sans-serif';ctx.textAlign='center';ctx.fillText(flash,W*.5,H*.25+31)}
+if(!running){ctx.fillStyle='#10254bc9';rounded(W*.13,H*.48,W*.74,48,15,'#10254bc9');ctx.fillStyle='#fff';ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.fillText(ended&&seconds===0?'وقت تمام شد!':'برای شروع بازی آماده‌ای؟',W*.5,H*.48+29)}
+}
+function updateStats(){$('score').textContent=fa(score);$('made').textContent=fa(made);$('time').textContent=fa(seconds)}
+function saveScore(){const name=($('playerName').value.trim()||'قهرمان بی‌نام').slice(0,18);let arr=[];try{arr=JSON.parse(localStorage.getItem('benitaBasketScores')||'[]')}catch(e){}arr.push({name,score, made, date:Date.now()});arr.sort((a,b)=>b.score-a.score||b.made-a.made||a.date-b.date);arr=arr.slice(0,5);try{localStorage.setItem('benitaBasketScores',JSON.stringify(arr))}catch(e){}renderBoard()}
+function renderBoard(){let arr=[];try{arr=JSON.parse(localStorage.getItem('benitaBasketScores')||'[]')}catch(e){}const body=$('board');if(!arr.length){body.innerHTML='<tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr>';return}body.innerHTML=arr.map((r,i)=>`<tr><td>${['🥇','🥈','🥉','۴','۵'][i]}</td><td>${escapeHtml(r.name)}</td><td>${fa(r.score)}</td></tr>`).join('')}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function start(){if(running)return;score=0;made=0;seconds=45;running=true;ended=false;last=0;resetBall();updateStats();$('hint').textContent='توپ را به عقب بکش و رها کن؛ هر گل ۲ امتیاز دارد!';cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function finish(){running=false;ended=true;seconds=0;updateStats();saveScore();$('hint').textContent=`بازی تمام شد! ${fa(score)} امتیاز گرفتی. برای رکورد تازه دوباره بازی کن.`;draw()}
+function loop(t){if(!running)return;if(!last)last=t;let dt=Math.min((t-last)/16.67,2);last=t;seconds=Math.max(0,45-Math.floor((t-gameStart)/1000));updateStats();if(seconds<=0){finish();return}if(shot){ball.prevX=ball.x;ball.prevY=ball.y;ball.x+=ball.vx*dt;ball.y+=ball.vy*dt;ball.vy+=.28*dt;ball.vx*=Math.pow(.998,dt);const h=hoop();if(!scoredThisShot&&ball.prevY<h.y&&ball.y>=h.y&&ball.vy>0&&ball.x>h.x-19&&ball.x<h.x+19){score+=2;made++;scoredThisShot=true;flash='گل شد! +۲ 🏀';flashUntil=performance.now()+850;updateStats()}
+if((ball.y>H*.74&&ball.vy>0)||ball.x>W+40||ball.x<-40||ball.y<-50||Math.abs(ball.vx)+Math.abs(ball.vy)<.5){if(!scoredThisShot){flash='دوباره تلاش کن!';flashUntil=performance.now()+650}resetBall()}}
+draw();raf=requestAnimationFrame(loop)}
+let gameStart=0; // assigned on start button
+const originalStart=start;start=function(){gameStart=performance.now();originalStart()};
+function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+canvas.addEventListener('pointerdown',e=>{if(!running||shot)return;const p=point(e);if(Math.hypot(p.x-ball.x,p.y-ball.y)<ball.r*2.6){drag={startX:p.x,startY:p.y,x:p.x,y:p.y};canvas.setPointerCapture(e.pointerId);e.preventDefault();draw()}});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;const p=point(e);drag.x=p.x;drag.y=p.y;draw();e.preventDefault()});
+canvas.addEventListener('pointerup',e=>{if(!drag)return;const dx=drag.startX-drag.x,dy=drag.startY-drag.y;const mag=Math.hypot(dx,dy);if(mag>12){ball.vx=Math.max(-10,Math.min(12,dx*.105));ball.vy=Math.max(-13,Math.min(3,dy*.105));shot=true;scoredThisShot=false}drag=null;draw();e.preventDefault()});
+$('startBtn').addEventListener('click',start);$('againBtn').addEventListener('click',start);$('resetBoardBtn').addEventListener('click',()=>{if(confirm('رکوردهای ذخیره‌شده روی همین گوشی پاک شوند؟')){localStorage.removeItem('benitaBasketScores');renderBoard()}});
+window.addEventListener('resize',resize);resize();renderBoard();updateStats();
+})();
+</script>
+</body>
+</html>
