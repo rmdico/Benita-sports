@@ -24,11 +24,13 @@
 <div class="controls"><div class="field"><label for="playerName">اسم یا لقب بازیکن</label><input id="playerName" maxlength="18" placeholder="مثلاً قهرمان آبی" autocomplete="nickname"></div><button id="startBtn" class="blue">شروع بازی ▶</button></div>
 <div class="stats"><div class="stat"><span>امتیاز</span><strong id="score">۰</strong></div><div class="stat"><span>زمان باقی‌مانده</span><strong><span id="time" style="display:inline;color:inherit;font-size:23px">۴۵</span> ثانیه</strong></div><div class="stat"><span>پرتاب موفق</span><strong id="made">۰</strong></div></div>
 </section>
-<section class="panel"><div class="game-wrap"><canvas id="court" aria-label="زمین بازی بسکتبال؛ توپ را بکش و رها کن"></canvas></div><p class="hint" id="hint">برای شروع، اسم یا لقب را وارد کن و «شروع بازی» را بزن. بعد توپ را به عقب بکش و رها کن.</p><div class="game-actions"><button class="primary" id="againBtn">بازی دوباره ↻</button><button class="soft" id="resetBoardBtn">پاک کردن رکوردهای این گوشی</button></div></section>
-<section class="panel"><h2 class="section-title">🏅 رکوردهای برتر این گوشی</h2><p class="muted">فعلاً رکوردها فقط روی همین گوشی ذخیره می‌شوند؛ برای جدول مشترک بین همه دانش‌آموزان باید بعداً پایگاه داده را وصل کنیم.</p><table class="leaderboard"><thead><tr><th>رتبه</th><th>بازیکن</th><th>امتیاز</th></tr></thead><tbody id="board"><tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr></tbody></table><p class="notice">لطفاً از اسم مستعار استفاده کنید و اطلاعات شخصی مثل شماره تلفن یا نام خانوادگی کامل وارد نکنید.</p></section>
+<section class="panel"><div class="game-wrap"><canvas id="court" aria-label="زمین بازی بسکتبال؛ توپ را بکش و رها کن"></canvas></div><p class="hint" id="hint">برای شروع، اسم یا لقب را وارد کن و «شروع بازی» را بزن. بعد توپ را به عقب بکش و رها کن.</p><div class="game-actions"><button class="primary" id="againBtn">بازی دوباره ↻</button><button class="soft" id="resetBoardBtn">تازه‌سازی جدول مشترک ↻</button></div></section>
+<section class="panel"><h2 class="section-title">🏆 جدول رقابت همهٔ دخترا</h2><p class="muted" id="boardStatus">در حال دریافت رکوردهای مشترک…</p><table class="leaderboard"><thead><tr><th>رتبه</th><th>بازیکن</th><th>امتیاز</th></tr></thead><tbody id="board"><tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr></tbody></table><p class="notice">لطفاً از اسم مستعار استفاده کنید و اطلاعات شخصی مثل شماره تلفن یا نام خانوادگی کامل وارد نکنید.</p></section>
 </main><footer>ساخته‌شده برای سرگرمی و رقابت دوستانه 💙</footer>
 <script>
 (()=>{
+const SUPABASE_URL='https://qgaoztxxpgnuizvcdonq.supabase.co';
+const SUPABASE_KEY='sb_publishable_Jz6HPZde-PpPaNdmsNnVOg_sJFWDE5f';
 const canvas=document.getElementById('court'),ctx=canvas.getContext('2d');
 const $=id=>document.getElementById(id);let W=320,H=390,dpr=1,ball,drag=null,running=false,ended=true,score=0,made=0,seconds=45,last=0,raf=0,shot=false,scoredThisShot=false,flash='',flashUntil=0;
 const fa=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -54,8 +56,40 @@ if(flash&&performance.now()<flashUntil){ctx.fillStyle='#10254be8';rounded(W*.18,
 if(!running){ctx.fillStyle='#10254bc9';rounded(W*.13,H*.48,W*.74,48,15,'#10254bc9');ctx.fillStyle='#fff';ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.fillText(ended&&seconds===0?'وقت تمام شد!':'برای شروع بازی آماده‌ای؟',W*.5,H*.48+29)}
 }
 function updateStats(){$('score').textContent=fa(score);$('made').textContent=fa(made);$('time').textContent=fa(seconds)}
-function saveScore(){const name=($('playerName').value.trim()||'قهرمان بی‌نام').slice(0,18);let arr=[];try{arr=JSON.parse(localStorage.getItem('benitaBasketScores')||'[]')}catch(e){}arr.push({name,score, made, date:Date.now()});arr.sort((a,b)=>b.score-a.score||b.made-a.made||a.date-b.date);arr=arr.slice(0,5);try{localStorage.setItem('benitaBasketScores',JSON.stringify(arr))}catch(e){}renderBoard()}
-function renderBoard(){let arr=[];try{arr=JSON.parse(localStorage.getItem('benitaBasketScores')||'[]')}catch(e){}const body=$('board');if(!arr.length){body.innerHTML='<tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr>';return}body.innerHTML=arr.map((r,i)=>`<tr><td>${['🥇','🥈','🥉','۴','۵'][i]}</td><td>${escapeHtml(r.name)}</td><td>${fa(r.score)}</td></tr>`).join('')}
+async function saveScore(){
+ const name=($('playerName').value.trim()||'قهرمان بی‌نام').replace(/[<>]/g,'').slice(0,18);
+ $('boardStatus').textContent='در حال ثبت رکوردت در جدول مشترک…';
+ try{
+  const response=await fetch(`${SUPABASE_URL}/rest/v1/basketball_scores`,{
+   method:'POST',
+   headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+   body:JSON.stringify({player_name:name,score:score})
+  });
+  if(!response.ok) throw new Error('ثبت رکورد ناموفق بود');
+  $('boardStatus').textContent='رکوردت برای همه ثبت شد! حالا ببین چندمی 😍';
+  await renderBoard();
+ }catch(e){
+  $('boardStatus').textContent='اتصال یا دسترسی ثبت رکورد مشکل دارد؛ جدول را دوباره تازه‌سازی کن.';
+  console.error(e);
+ }
+}
+async function renderBoard(){
+ const body=$('board');
+ try{
+  const response=await fetch(`${SUPABASE_URL}/rest/v1/basketball_scores?select=player_name,score,created_at&order=score.desc,created_at.asc&limit=5`,{
+   headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}
+  });
+  if(!response.ok) throw new Error('دریافت جدول ناموفق بود');
+  const arr=await response.json();
+  if(!arr.length){body.innerHTML='<tr><td colspan="3" class="empty">هنوز رکوردی ثبت نشده؛ اولین قهرمان تو باش!</td></tr>';$('boardStatus').textContent='جدول مشترک آماده است؛ اولین رکورد را ثبت کن!';return}
+  body.innerHTML=arr.map((r,i)=>`<tr><td>${['🥇','🥈','🥉','۴','۵'][i]}</td><td>${escapeHtml(r.player_name)}</td><td>${fa(r.score)}</td></tr>`).join('');
+  $('boardStatus').textContent='این جدول مشترک است و رکوردهای همهٔ گوشی‌ها را نشان می‌دهد.';
+ }catch(e){
+  body.innerHTML='<tr><td colspan="3" class="empty">جدول فعلاً بارگذاری نشد؛ چند لحظه دیگر دوباره امتحان کن.</td></tr>';
+  $('boardStatus').textContent='خطا در اتصال به جدول مشترک.';
+  console.error(e);
+ }
+}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function start(){if(running)return;score=0;made=0;seconds=45;running=true;ended=false;last=0;resetBall();updateStats();$('hint').textContent='توپ را به عقب بکش و رها کن؛ هر گل ۲ امتیاز دارد!';cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function finish(){running=false;ended=true;seconds=0;updateStats();saveScore();$('hint').textContent=`بازی تمام شد! ${fa(score)} امتیاز گرفتی. برای رکورد تازه دوباره بازی کن.`;draw()}
@@ -68,7 +102,7 @@ function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.le
 canvas.addEventListener('pointerdown',e=>{if(!running||shot)return;const p=point(e);if(Math.hypot(p.x-ball.x,p.y-ball.y)<ball.r*2.6){drag={startX:p.x,startY:p.y,x:p.x,y:p.y};canvas.setPointerCapture(e.pointerId);e.preventDefault();draw()}});
 canvas.addEventListener('pointermove',e=>{if(!drag)return;const p=point(e);drag.x=p.x;drag.y=p.y;draw();e.preventDefault()});
 canvas.addEventListener('pointerup',e=>{if(!drag)return;const dx=drag.startX-drag.x,dy=drag.startY-drag.y;const mag=Math.hypot(dx,dy);if(mag>12){ball.vx=Math.max(-10,Math.min(12,dx*.105));ball.vy=Math.max(-13,Math.min(3,dy*.105));shot=true;scoredThisShot=false}drag=null;draw();e.preventDefault()});
-$('startBtn').addEventListener('click',start);$('againBtn').addEventListener('click',start);$('resetBoardBtn').addEventListener('click',()=>{if(confirm('رکوردهای ذخیره‌شده روی همین گوشی پاک شوند؟')){localStorage.removeItem('benitaBasketScores');renderBoard()}});
+$('startBtn').addEventListener('click',start);$('againBtn').addEventListener('click',start);$('resetBoardBtn').addEventListener('click',()=>renderBoard());
 window.addEventListener('resize',resize);resize();renderBoard();updateStats();
 })();
 </script>
