@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#155eef">
 <title>بنیتا فاطمی | تیم ما، انرژی ما</title>
-<meta name="description" content="معرفی بنیتا فاطمی و ایده‌های ورزشی برای شورای دانش‌آموزی">
+<meta name="description" content="معرفی بنیتا فاطمی، ایده‌های شورای دانش‌آموزی و مسابقه بسکتبال با جایزه توپ بسکتبال اصل">
 <style>
 :root{--blue:#155eef;--navy:#10254b;--sky:#eaf4ff;--yellow:#ffdb69;--ink:#192b49;--muted:#65748b}
 *{box-sizing:border-box}
@@ -18,7 +18,7 @@ header{background:#fff;border-bottom:1px solid #e5edf7;padding:14px 0}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px}
 .logo{width:43px;height:43px;border-radius:15px;background:var(--blue);color:white;display:grid;place-items:center;font-size:23px}
-nav{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:800}
+nav{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:800}
 nav a:hover{color:var(--blue)}
 .hero{margin:23px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(130deg,#10275b,#155eef 65%,#65c7ff);color:white;padding:30px 5%;position:relative}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:28px;position:relative;z-index:1}
@@ -56,12 +56,23 @@ h2{font-size:clamp(25px,4vw,35px);line-height:1.5;margin:5px 0 10px}
 .story h3{font-size:18px;margin:5px 0}
 .label{color:var(--blue);font-size:11px;font-weight:900}
 .note{font-size:12px;color:var(--muted);margin-top:15px}
+.contest{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#10275b,#155eef 68%,#65c7ff);color:white;padding:30px 22px;text-align:center;box-shadow:0 16px 38px #155eef22}
+.contest .eyebrow{color:#ffdb69}
+.contest h2{color:white}
+.contest p{color:#e5f1ff}
+.prize{max-width:480px;margin:20px auto;padding:17px 14px;border-radius:20px;background:#ffffff18;border:1px solid #ffffff50}
+.prize-icon{font-size:44px;line-height:1.4}
+.prize strong{color:#ffdb69;font-size:clamp(18px,4vw,23px)}
+.contest-button{display:inline-block;background:var(--yellow);color:var(--navy);padding:12px 23px;border-radius:14px;font-weight:900;margin-top:8px;box-shadow:0 6px 0 #c69c35}
+.contest-button:active{transform:translateY(2px);box-shadow:0 4px 0 #c69c35}
+.contest-small{font-size:12px;margin-bottom:0}
 footer{background:#0b2046;color:#dceaff;padding:28px 0;text-align:center}
 footer strong{color:white}
 footer p{font-size:13px}
 footer a{color:#a8d0ff}
 @media(max-width:700px){
  nav{gap:9px;font-size:12px}
+ .nav{align-items:flex-start}
  .hero{padding:22px 5%}
  .hero-grid,.feature{grid-template-columns:1fr}
  .photo-frame{max-width:300px}
@@ -69,6 +80,7 @@ footer a{color:#a8d0ff}
  .cards,.magazine{grid-template-columns:1fr}
  .section{padding:32px 0}
  .feature{padding:20px}
+ .contest{padding:24px 15px}
 }
 </style>
 </head>
@@ -79,6 +91,7 @@ footer a{color:#a8d0ff}
 <nav>
 <a href="#about">معرفی</a>
 <a href="#goals">اهداف من</a>
+<a href="#basketball-challenge">مسابقه بسکتبال 🏀</a>
 <a href="#magazine">مجله ورزشی</a>
 </nav>
 </div>
@@ -93,7 +106,7 @@ footer a{color:#a8d0ff}
 <p>سلام! من بنیتا فاطمی هستم. دوست دارم مدرسه‌مان پر از شور، دوستی و فعالیت‌های ورزشی باشد؛ جایی که همه بتوانیم توانایی‌هایمان را نشان بدهیم و کنار هم پیشرفت کنیم.</p>
 <div class="actions">
 <a class="btn primary" href="#goals">برنامه‌های من ←</a>
-<a class="btn secondary" href="#magazine">مجله ورزشی</a>
+<a class="btn secondary" href="#basketball-challenge">مسابقه بسکتبال 🏀</a>
 </div>
 <div class="sports-strip">
 <span class="sport-pill">🏀 بسکتبال</span>
@@ -106,6 +119,22 @@ footer a{color:#a8d0ff}
 </div>
 <div class="photo-caption">بنیتا فاطمی | با هم، پرتحرک‌تر 💙</div>
 </div>
+</div>
+</section>
+
+<section class="section" id="basketball-challenge">
+<div class="contest">
+<div style="font-size:48px">🏀🏆</div>
+<span class="eyebrow">مسابقه ویژه دخترهای مدرسه</span>
+<h2>چالش بزرگ بسکتبال بنیتا!</h2>
+<p style="max-width:570px;margin:0 auto">فکر می‌کنی قهرمان پرتابی؟ اسمت یا یک لقب انتخاب کن، وارد بازی شو و رکورد بزن! با دوستات رقابت کن و برای رسیدن به رتبه اول تلاش کن.</p>
+<div class="prize">
+<div class="prize-icon">🎁🏀</div>
+<strong>جایزه نفر اول: یک توپ بسکتبال اصل!</strong>
+<p style="font-size:13px;margin:6px 0 0">بازی کن، امتیاز بگیر و خودت رو به صدر جدول برسون.</p>
+</div>
+<a class="contest-button" href="basketball.html">🏀 شروع بازی و ثبت رکورد</a>
+<p class="contest-small">برای سرگرمی و رقابت دوستانه 💙</p>
 </div>
 </section>
 
